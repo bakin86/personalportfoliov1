@@ -1,0 +1,82 @@
+/* Custom Fonts */
+@font-face {
+  font-family: 'Yapari';
+  src: url('/fonts/YapariTrial-Bold.ttf') format('truetype'),
+       url('/fonts/Yapari.woff2') format('woff2'),
+       url('/fonts/Yapari.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('/fonts/coolvetica.ttf') format('truetype'),
+       url('/fonts/Coolvetica.woff2') format('woff2'),
+       url('/fonts/Coolvetica.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Drowner';
+  src: url('/fonts/Drowner-free.ttf') format('truetype'),
+       url('/fonts/Drowner.woff2') format('woff2'),
+       url('/fonts/Drowner.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body antialiased;
+  }
+
+  /* Custom scrollbar - Light Mode */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-white dark:bg-brutal-black;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-brutal-red;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brutal-red-dark;
+  }
+}
+
+@layer utilities {
+  /* Selection colors */
+  ::selection {
+    @apply bg-brutal-red text-white;
+  }
+
+  ::-moz-selection {
+    @apply bg-brutal-red text-white;
+  }
+
+  /* Custom animations */
+  @keyframes slide-in {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
