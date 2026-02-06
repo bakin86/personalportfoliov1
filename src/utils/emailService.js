@@ -1,11 +1,9 @@
-// Email sending utility
-// In production, this would connect to a backend API
-// For now, it simulates email sending
+// Email sending utility using Formspree
+// Replace 'YOUR_FORMSPREE_FORM_ID' with your actual Formspree form ID
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xwvneyyq';
 
 export const sendEmail = async (formData) => {
-  // Simulate API call delay
-  await new Promise(resolve => setTimeout(resolve, 1500));
-  
   // Validate form data
   const { name, email, message } = formData;
   
@@ -17,19 +15,35 @@ export const sendEmail = async (formData) => {
     throw new Error('Invalid email address');
   }
   
-  // In production, replace this with actual API call:
-  // const response = await fetch('/api/send-email', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify(formData)
-  // });
-  
-  console.log('Email sent:', formData);
-  
-  return {
-    success: true,
-    message: 'Email sent successfully!'
-  };
+  try {
+    const response = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        message: message,
+        _subject: `New Portfolio Contact from ${name}`,
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to send message');
+    }
+
+    return {
+      success: true,
+      message: 'Message sent successfully!'
+    };
+  } catch (error) {
+    console.error('Formspree error:', error);
+    throw new Error(error.message || 'Failed to send message. Please try again.');
+  }
 };
 
 const isValidEmail = (email) => {
@@ -37,21 +51,3 @@ const isValidEmail = (email) => {
   return emailRegex.test(email);
 };
 
-// For production use with EmailJS or similar service:
-/*
-import emailjs from '@emailjs/browser';
-
-export const sendEmail = async (formData) => {
-  try {
-    const result = await emailjs.send(
-      'YOUR_SERVICE_ID',
-      'YOUR_TEMPLATE_ID',
-      formData,
-      'YOUR_PUBLIC_KEY'
-    );
-    return { success: true, message: 'Email sent successfully!' };
-  } catch (error) {
-    throw new Error('Failed to send email');
-  }
-};
-*/
