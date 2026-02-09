@@ -7,6 +7,10 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      screens: {
+        'xxs': '375px', // iPhone SE and similar small phones
+        'xs': '475px',  // Slightly larger phones
+      },
       fontFamily: {
         'yapari': ['Yapari', 'sans-serif'],
         'coolvetica': ['Coolvetica', 'sans-serif'],
