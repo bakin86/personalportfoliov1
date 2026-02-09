@@ -47,29 +47,28 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Dynamic Island Navigation - Desktop and Mobile */}
+      {/* Mobile: Just show burger menu button on left */}
+      <div className="block sm:hidden fixed top-4 left-4 z-50">
+        <motion.button
+          onClick={() => setIsExpanded(true)}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-brutal-black border-2 border-brutal-red shadow-lg"
+          aria-label="Open menu"
+        >
+          <Menu size={20} className="text-brutal-red" />
+        </motion.button>
+      </div>
+
+      {/* Desktop: Full dynamic island */}
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-3 sm:top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[calc(100%-2rem)] sm:max-w-none sm:w-auto px-4 sm:px-0"
+        className="hidden sm:block fixed top-3 sm:top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[calc(100%-2rem)] sm:max-w-none sm:w-auto px-4 sm:px-0"
       >
-        {/* Mobile: Just show burger menu button */}
-        <div className="block sm:hidden">
-          <motion.button
-            onClick={() => setIsExpanded(true)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-brutal-black border-2 border-brutal-red shadow-lg"
-            aria-label="Open menu"
-          >
-            <Menu size={20} className="text-brutal-red" />
-          </motion.button>
-        </div>
-
-        {/* Desktop: Full dynamic island */}
         <motion.div
           animate={{
             width: isExpanded 
@@ -84,7 +83,7 @@ const Navigation = () => {
             stiffness: 300, 
             damping: 30 
           }}
-          className="relative mx-auto hidden sm:block"
+          className="relative mx-auto"
         >
           {/* Dynamic Island Container */}
           <div className="absolute inset-0 bg-brutal-black dark:bg-white border-2 border-brutal-red rounded-full overflow-hidden shadow-2xl backdrop-blur-xl">

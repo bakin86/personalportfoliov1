@@ -34,7 +34,7 @@ const DarkModeToggle = () => {
   return (
     <motion.button
       onClick={toggleDarkMode}
-      className="fixed top-6 right-6 z-50 p-4 border-2 border-brutal-red bg-white dark:bg-brutal-black transition-colors group hover:scale-110"
+      className="hidden sm:block fixed top-6 right-6 z-50 p-4 border-2 border-brutal-red bg-white dark:bg-brutal-black transition-colors group hover:scale-110"
       whileHover={{ rotate: 180 }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.3 }}
